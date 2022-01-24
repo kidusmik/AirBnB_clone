@@ -8,7 +8,7 @@ For example,
 BaseModel()
 """
 import uuid
-from datetime import date
+from datetime import datetime
 
 class BaseModel:
     """Defines a class BaseModel.
@@ -21,13 +21,13 @@ class BaseModel:
 
     def __init__(self):
         self.id = str(uuid.uuid4())
-        self.created_at = date.today()
+        self.created_at = datetime.today()
         self.updated_at = self.created_at
 
     def __str__(self):
         """Unofficial string representation of BaseModel class."""
-        return "[{}] ({:d}) {}".\
-            format(self.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".\
+            format(self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
         """Defines a function save.
@@ -35,7 +35,7 @@ class BaseModel:
         Updates the public instance attribute updated_at with the
         current datetime.
         """
-        self.updated_at = date.today()
+        self.updated_at = datetime.today()
 
     def to_dict(self):
         """Defines a function to_dict.
@@ -44,7 +44,7 @@ class BaseModel:
         current datetime.
         """
         dict_r = self.__dict__
-        dict_r.update({'__class__': 'self.__name__'},
-                      {'created_at': self.created_at.isoformat()},
-                      {'updated_at': self.updated_at.isofromat()})
+        dict_r.update({'__class__': self.__class__.__name__,
+                      'created_at': self.created_at.isoformat(),
+                      'updated_at': self.updated_at.isoformat()})
         return dict_r    
