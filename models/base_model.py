@@ -2,7 +2,7 @@
 """
 This is the "base_model" module.
 The base_model module supplies one class, BaseModel, that
-	defines all common attributes/methods for other classes.
+    defines all common attributes/methods for other classes.
 
 For example,
 BaseModel()
@@ -10,15 +10,15 @@ BaseModel()
 import uuid
 from datetime import datetime
 
+
 class BaseModel:
     """Defines a class BaseModel.
 
     Attributes:
-        id (str): id of the class 
+        id (str): id of the class
         created_at (str): created date of the class
-        updated_at (str): updated date of the class 
+        updated_at (str): updated date of the class
     """
-
     def __init__(self):
         self.id = str(uuid.uuid4())
         self.created_at = datetime.today()
@@ -45,6 +45,6 @@ class BaseModel:
         """
         dict_r = self.__dict__
         dict_r.update({'__class__': self.__class__.__name__,
-                      'created_at': self.created_at.isoformat(),
-                      'updated_at': self.updated_at.isoformat()})
-        return dict_r    
+                       'created_at': self.created_at.isoformat(),
+                       'updated_at': self.updated_at.isoformat()})
+        return dict_r
