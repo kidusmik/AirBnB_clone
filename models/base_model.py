@@ -22,11 +22,11 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         if kwargs:
             for key, value in kwargs.items():
-                if key is "id":
+                if key == "id":
                     self.id = value
-                elif key is "created_at":
+                elif key == "created_at":
                     self.created_at = datetime.fromisoformat(value)
-                elif key is "updated_at":
+                elif key == "updated_at":
                     self.updated_at = datetime.fromisoformat(value)
         else:
             self.id = str(uuid.uuid4())
