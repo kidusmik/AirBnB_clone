@@ -18,26 +18,36 @@ class FileStorage:
         __objects (dictionary): created date of the class
     """
 
-    __file_path = "storage.json"
+    __file_path = "file.json"
     __objects = {}
 
     def all(self):
         """Returns the dictionary __objects"""
-        return __objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
-        obj_key = obj.__class__.__name__ + ".id"
-        __objects.update({'obj_key': obj})
+        obj_key = obj.__class__.__name__ + "." + obj.id
+        FileStorage.__objects.update({obj_key: obj})
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
-        with open(__file_path, 'w') as f:
-            f.write(json.dumps(__objects))
+        with open(FileStorage.__file_path, 'w') as f:
+            save_r = {}
+            save_r.update(FileStorage.__objects)
+            for key, value in save_r.items():
+                save_r.update({key: value.to_dict()})
+            json.dump(save_r, f)
 
     def reload(self):
         """deserializes the JSON file to __objects (only if the JSON\
         file (__file_path) exists.
         """
-        with open(__file_path, "r") as f:
-            __objects = json.loads(f.read())
+        from models.base_model import BaseModel
+        try:
+            with open(FileStorage.__file_path, "r") as f:
+                open_r = json.load(f)
+                for key, value in open_r.items():
+                    FileStorage.__objects.update({key: value['__class__'](**value)})
+        except Exception:
+            pass
