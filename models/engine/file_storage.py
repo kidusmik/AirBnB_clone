@@ -45,11 +45,12 @@ class FileStorage:
         """
         from models.base_model import BaseModel
 
-        class_list = {'BaseModel': BaseModel} 
+        class_list = {'BaseModel': BaseModel}
         try:
             with open(FileStorage.__file_path, "r") as f:
                 open_r = json.load(f)
                 for key, value in open_r.items():
-                    FileStorage.__objects.update({key: class_list[value['__class__']](**value)})
+                    FileStorage.__objects.update(
+                        {key: class_list[value['__class__']](**value)})
         except Exception:
             pass
