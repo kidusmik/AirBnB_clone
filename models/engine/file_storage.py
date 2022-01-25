@@ -40,4 +40,4 @@ class FileStorage:
         file (__file_path) exists.
         """
         with open(__file_path, "r") as f:
-            __objects = json.loads(f.read())   
+            __objects = json.loads(f.read())
