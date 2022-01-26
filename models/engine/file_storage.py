@@ -52,9 +52,9 @@ class FileStorage:
         from models.review import Review
 
         all_classes = {'BaseModel': BaseModel, 'User': User,
-                      'State': State, 'City': City,
-                      'Amenity': Amenity, 'Place': Place,
-                      'Review': Review}
+                       'State': State, 'City': City,
+                       'Amenity': Amenity, 'Place': Place,
+                       'Review': Review}
         try:
             with open(FileStorage.__file_path, "r") as f:
                 open_r = json.load(f)
