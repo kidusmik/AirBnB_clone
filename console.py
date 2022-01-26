@@ -5,6 +5,8 @@ This is the "console" file.
 The console file contains the entry point of the command interpreter.
 """
 import cmd
+from models.base_model import BaseModel
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -14,6 +16,7 @@ class HBNBCommand(cmd.Cmd):
         prompt (str): prompt to display to the user
     """
     prompt = "(hbnb) "
+    all_classes = {'BaseModel': BaseModel}
 
     def do_exit(self, arg):
         exit()
@@ -28,6 +31,33 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         pass
 
+    def do_create(self, arg):
+        if len(arg.split()) < 1:
+            print('** class name missing **')
+        else:
+            if arg in HBNBCommand.all_classes.keys():
+                obj = HBNBCommand.all_classes[arg]()
+                obj.save()
+                print(obj.id)
+            else:
+                print("** class doesn't exist **")
+
+    def do_show(self, arg):
+        args = arg.split()
+        if len(args) < 1:
+            print('** class name missing **')
+        elif len(args) < 2:
+            print('** instance id missing **')
+        else:
+            if args[0] in HBNBCommand.all_classes.keys(): 
+                all_objs = storage.all()
+                key_obj = args[0] + "." + args[1] 
+                try:
+                    print(all_objs[key_obj])
+                except KeyError:
+                    print('** no instance found **')
+            else:
+                print("** class doesn't exist **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
