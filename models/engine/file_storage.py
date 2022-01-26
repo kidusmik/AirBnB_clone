@@ -45,13 +45,21 @@ class FileStorage:
         """
         from models.base_model import BaseModel
         from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
 
-        class_list = {'BaseModel': BaseModel, 'User': User}
+        all_classes = {'BaseModel': BaseModel, 'User': User,
+                       'State': State, 'City': City,
+                       'Amenity': Amenity, 'Place': Place,
+                       'Review': Review}
         try:
             with open(FileStorage.__file_path, "r") as f:
                 open_r = json.load(f)
                 for key, value in open_r.items():
                     FileStorage.__objects.update(
-                        {key: class_list[value['__class__']](**value)})
+                        {key: all_classes[value['__class__']](**value)})
         except Exception:
             pass
