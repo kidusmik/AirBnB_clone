@@ -55,7 +55,8 @@ class BaseModel:
         Updates the public instance attribute updated_at with the
         current datetime.
         """
-        dict_r = self.__dict__
+        dict_r = {}
+        dict_r.update(self.__dict__)
         dict_r.update({'__class__': self.__class__.__name__,
                        'created_at': self.created_at.isoformat(),
                        'updated_at': self.updated_at.isoformat()})
