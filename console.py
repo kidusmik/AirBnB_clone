@@ -91,6 +91,29 @@ class HBNBCommand(cmd.Cmd):
                         lst_all.append(str(storage._FileStorage__objects[key]))
                 print(lst_all)
 
+    def do_update(self, arg):
+        args = arg.split()
+        if len(args) < 1:
+            print('** class name missing **')
+        elif args[0] not in HBNBCommand.all_classes.keys():
+            print("** class doesn't exist **")
+        elif len(args) < 2:
+            print('** instance id missing **')
+        elif (args[0] + "." + args[1]) not in\
+                storage._FileStorage__objects.keys():
+            print('** no instance found **')
+        elif len(args) < 3:
+            print('** attribute name missing **')
+        elif len(args) < 4:
+            print('** value missing **')
+        else:
+            key_obj = args[0] + "." + args[1]
+            selected_obj = storage._FileStorage__objects[key_obj]
+            selected_obj_dict = selected_obj.to_dict()
+            selected_obj_dict.update({args[2]: args[3].strip('"')})
+            updated_obj = HBNBCommand.all_classes[args[0]](**selected_obj_dict)
+            storage._FileStorage__objects.update({key_obj: updated_obj})
+            updated_obj.save()
 
 
 if __name__ == '__main__':
