@@ -23,12 +23,13 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         if kwargs:
             for key, value in kwargs.items():
-                if key == "id":
-                    self.id = value
-                elif key == "created_at":
+                if key == "created_at":
                     self.created_at = datetime.fromisoformat(value)
                 elif key == "updated_at":
                     self.updated_at = datetime.fromisoformat(value)
+                elif key != "__class__":
+                    setattr(self, key, value)
+
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.today()
