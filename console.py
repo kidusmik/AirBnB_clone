@@ -20,6 +20,7 @@ class HBNBCommand(cmd.Cmd):
 
     Attributes:
         prompt (str): prompt to display to the user
+        all_classes (dict): list of all classes
     """
     prompt = "(hbnb) "
     all_classes = {'BaseModel': BaseModel, 'User': User,
@@ -28,19 +29,24 @@ class HBNBCommand(cmd.Cmd):
                    'Review': Review}
 
     def do_quit(self, arg):
+        """Quits the command interpreter."""
         exit()
 
     def do_EOF(self, arg):
+        """Quits the command interpreter."""
         print()
         exit()
 
     def help_quit(self):
+        """Displays the function of the quit command."""
         print('Quit command to exit the program')
 
     def emptyline(self):
+        """Do nothing if no command is entered."""
         pass
 
     def do_create(self, arg):
+        """Creates an instance from a class."""
         args = arg.split()
         if len(args) < 1:
             print('** class name missing **')
@@ -53,6 +59,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
 
     def do_show(self, arg):
+        """Shows the string representation of the object."""
         args = arg.split()
         if len(args) < 1:
             print('** class name missing **')
@@ -68,6 +75,7 @@ class HBNBCommand(cmd.Cmd):
                 print('** no instance found **')
 
     def do_destroy(self, arg):
+        """Destroys the object passed."""
         args = arg.split()
         if len(args) < 1:
             print('** class name missing **')
@@ -84,6 +92,7 @@ class HBNBCommand(cmd.Cmd):
                 print('** no instance found **')
 
     def do_all(self, arg):
+        """Displays list of all objects in the application."""
         args = arg.split()
         if len(args) < 1:
             lst_all = []
@@ -101,6 +110,7 @@ class HBNBCommand(cmd.Cmd):
                 print(lst_all)
 
     def do_update(self, arg):
+        """Updates an object with the values passed from the command line."""
         args = arg.split()
         if len(args) < 1:
             print('** class name missing **')
