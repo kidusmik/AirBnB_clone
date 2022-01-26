@@ -92,5 +92,6 @@ class HBNBCommand(cmd.Cmd):
                 print(lst_all)
 
 
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
