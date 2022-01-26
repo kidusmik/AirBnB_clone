@@ -44,8 +44,9 @@ class FileStorage:
         file (__file_path) exists.
         """
         from models.base_model import BaseModel
+        from models.user import User
 
-        class_list = {'BaseModel': BaseModel}
+        class_list = {'BaseModel': BaseModel, 'User': User}
         try:
             with open(FileStorage.__file_path, "r") as f:
                 open_r = json.load(f)
