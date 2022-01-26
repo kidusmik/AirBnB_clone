@@ -16,23 +16,14 @@ This project is building a terminal that is used to test important objects of th
 ### Classes
 
 | Name | Description |
-| --- | --- |
 | BaseModel | Defines all common attributes/methods for other classes |
-| --- | --- |
 | FileStorage | Serializes instances to a JSON file and deserializes JSON file to instances |
-| --- | --- |
 | User | Holds user information |
-| --- | --- |
 | State | Holds state information |
-| --- | --- |
 | City | Holds city information |
-| --- | --- |
 | Amenity | Holds amenity information |
-| --- | --- |
 | Place | Holds place information |
-| --- | --- |
 | Review | Holds review information |
-|--- | --- |
 
 ## The Command Interpreter
 
@@ -52,17 +43,11 @@ kidusmik@ubuntu$ ./console.py
 There are list of commands that can be interpreted by the terminal.
 
 | Command | Syntax | Function |
-| --- | --- | --- |
 | create | `create <class name>` | Creates a new instance of the class |
-| --- | --- |
 | show | `show <class name> <id>` | Prints the string representation of an instance based on the class name |
-| --- | --- |
 | destroy | `destroy <class name> <id>` | Deletes an instance based on the class name and id |
-| --- | --- |
 | all | `all` or `all <class name>` | Prints all string representation of all instances based or not on the class name |
-| --- | --- |
 | update | `update <class name> <id> <attribute name> <attribute value>` | Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file |
-| --- | --- |
 
 ### Example
 
