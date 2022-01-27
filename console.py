@@ -5,6 +5,7 @@ This is the "console" file.
 The console file contains the entry point of the command interpreter.
 """
 import cmd
+import re
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -39,11 +40,17 @@ class HBNBCommand(cmd.Cmd):
         if '.' in line and '(' in line and ')' in line:
             args = line.split('.')
             class_name = args[0]
-            cmd_name = args[1].strip('()')
+            args = args[1].split('(')
+            cmd_name = args[0]
+            args[1].strip(')')
+            attr_lst = re.findall(r"([^(, *)]+)(?!.*\()", args[1])
             if cmd_name not in HBNBCommand.all_commands:
                 line = cmd_name
             else:
                 line = cmd_name + " " + class_name
+                if attr_lst:
+                    for i in attr_lst:
+                        line = line + " " + i.strip('"')
         return line
 
     def do_quit(self, arg):
