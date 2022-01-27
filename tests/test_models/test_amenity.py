@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """
-The ``test_base_model`` module
+The ``test_amenity`` module
 ==============================
 
-Using ``test_base_model``
+Using ``test_amenity``
 -------------------------
 
-This is a test_base_model unittest file to test the base_model module.
+This is a test_amenity unittest file to test the amenity module.
 
 """
 import unittest
