@@ -28,7 +28,7 @@ class HBNBCommand(cmd.Cmd):
                    'Amenity': Amenity, 'Place': Place,
                    'Review': Review}
 
-    all_commands = ['create', 'show', 'destroy', 'all', 'update']
+    all_commands = ['create', 'show', 'destroy', 'all', 'update', 'count']
 
     def emptyline(self):
         """Do nothing if no command is entered."""
@@ -144,6 +144,21 @@ class HBNBCommand(cmd.Cmd):
             storage._FileStorage__objects.update({key_obj: updated_obj})
             updated_obj.save()
 
+    def do_count(self, arg):
+        """Counts the number of instances of a class."""
+        args = arg.split()
+        if len(args) < 1:
+            print('** class name missing **')
+        else:
+            if args[0] in HBNBCommand.all_classes.keys():
+                count = 0
+                for obj in storage._FileStorage__objects.values():
+                    if isinstance(obj, HBNBCommand.all_classes[args[0]]):
+                        count += 1
+                print(count)
+            else:
+                print("** class doesn't exist **")
+
     def help_quit(self):
         """Displays the function of the quit command."""
         print('Quit command to exit the program')
@@ -176,6 +191,10 @@ class HBNBCommand(cmd.Cmd):
         """Displays the function of the update command."""
         print('Updates an instance based on the class name and id by adding or\
  updating attribute and save the change into the JSON file')
+
+    def help_count(self):
+        """Displays the function of the count command."""
+        print('Counts the number of instances of a certain class')
 
 
 if __name__ == '__main__':
