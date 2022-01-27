@@ -1,19 +1,19 @@
-# Team Project - AirBnB Clone
+# Project - AirBnB Clone
 
 ![HBNB Cover Image](test/hbnb-cover.png)
 
-This is ALX/Holberton's project *AirBnB Clone*, as the title states it is cloning the AirBnB web application leading owards building full web application: the *AirBnB Clone*
+This is ALX/Holberton's project **AirBnB Clone**, as the title states it is cloning the AirBnB web application leading owards building full web application: the **AirBnB Clone**
 
 ## Project Description
 
-This project is building a terminal that is used to test important objects of the project, the tests include:
+The current aim of the project is to build a terminal that is used to manage and test the objects of our project, such as:
 
-* Creating the object
-* Destroying the object
-* Displaying the specific object
-* Destroying the object
-* Diplaying all the objects created
-* Updating the object
+* Create a new object (ex: a new User or a new Place)
+* Retrieve an object from a file, a database etc…
+* Diplaying an object or all objects from a file, a database etc…
+* Do operations on objects (count, compute stats, etc…)
+* Update attributes of an object
+* Destroy an object
 
 ### Classes
 
