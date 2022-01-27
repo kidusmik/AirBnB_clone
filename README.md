@@ -1,5 +1,7 @@
 # Team Project - AirBnB Clone
 
+![HBNB Cover Image](test/hbnb-cover.png)
+
 This is ALX/Holberton's project *AirBnB Clone*, as the title states it is cloning the AirBnB web application leading owards building full web application: the *AirBnB Clone*
 
 ## Project Description
