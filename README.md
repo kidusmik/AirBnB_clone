@@ -51,6 +51,47 @@ There are list of commands that can be interpreted by the terminal.
 | all | `all` or `all <class name>` | Prints all string representation of all instances based or not on the class name |
 | update | `update <class name> <id> <attribute name> <attribute value>` | Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file |
 
+### Execution
+
+Execution in `interactive` and `non-interactive` modes.
+
+#### Interactive Mode
+```
+kidusmik@ubuntu:~AirBnB_clone$ ./console.py
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
+
+(hbnb)
+```
+
+#### Non-interactive Mode
+```
+kidusmik@ubuntu:~AirBnB_clone$ echo "help" | ./console.py
+(hbnb)
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
+(hbnb) 
+kidusmik@ubuntu:~AirBnB_clone$
+```
+```
+kidusmik@ubuntu:~AirBnB_clone$ cat test_help
+help
+kidusmik@ubuntu:~AirBnB_clone$
+kidusmik@ubuntu:~AirBnB_clone$ cat test_help | ./console.py
+(hbnb)
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
+(hbnb) 
+kidusmik@ubuntu:~AirBnB_clone$
+```
+
 ### Example
 
 Here are some examples of the terminal usage.
@@ -113,6 +154,13 @@ c37c1765-bd84-4890-90b4-690afffb2b3d
 (hbnb) all
 ["[Place] (4e70b774-e1ce-45c6-8993-45e10ce48a46) {'id': '4e70b774-e1ce-45c6-8993-45e10ce48a46', 'created_at': datetime.datetime(2022, 1, 26, 19, 50, 49, 59166), 'updated_at': datetime.datetime(2022, 1, 26, 19, 50, 49, 59232)}", "[BaseModel] (c37c1765-bd84-4890-90b4-690afffb2b3d) {'id': 'c37c1765-bd84-4890-90b4-690afffb2b3d', 'created_at': datetime.datetime(2022, 1, 26, 19, 54, 52, 766133), 'updated_at': datetime.datetime(2022, 1, 26, 19, 56, 36, 394426), 'email': 'kidusmik@gmail.com'}"]
 (hbnb)
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
+
+(hbnb)
 (hbnb) help quit
 Quit command to exit the program
 (hbnb)
@@ -121,4 +169,16 @@ kidusmik@ubuntu:~AirBnB_clone$
 kidusmik@ubuntu:~AirBnB_clone$ cat file.json ; echo ""
 {"Place.4e70b774-e1ce-45c6-8993-45e10ce48a46": {"id": "4e70b774-e1ce-45c6-8993-45e10ce48a46", "created_at": "2022-01-26T19:50:49.059166", "updated_at": "2022-01-26T19:50:49.059232", "__class__": "Place"}, "BaseModel.c37c1765-bd84-4890-90b4-690afffb2b3d": {"id": "c37c1765-bd84-4890-90b4-690afffb2b3d", "created_at": "2022-01-26T19:54:52.766133", "updated_at": "2022-01-26T19:56:36.394426", "email": "kidusmik@gmail.com", "__class__": "BaseModel"}}
 kidusmik@ubuntu:~AirBnB_clone$
+```
+
+### Testing
+
+To run all the `unittests` run `python3 -m unittest discover tests`:
+```
+kidusmik@ubuntu:~AirBnB_clone$ python3 -m unittest discover tests
+```
+
+Or non-interactively by running `echo "python3 -m unittest discover tests" | bash`:
+```
+kidusmik@ubuntu:~AirBnB_clone$ echo "python3 -m unittest discover tests" | bash
 ```
