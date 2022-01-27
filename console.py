@@ -37,10 +37,6 @@ class HBNBCommand(cmd.Cmd):
         print()
         exit()
 
-    def help_quit(self):
-        """Displays the function of the quit command."""
-        print('Quit command to exit the program')
-
     def emptyline(self):
         """Do nothing if no command is entered."""
         pass
@@ -133,6 +129,39 @@ class HBNBCommand(cmd.Cmd):
             updated_obj = HBNBCommand.all_classes[args[0]](**selected_obj_dict)
             storage._FileStorage__objects.update({key_obj: updated_obj})
             updated_obj.save()
+
+    def help_quit(self):
+        """Displays the function of the quit command."""
+        print('Quit command to exit the program')
+
+    def help_EOF(self):
+        """Displays the function of EOF."""
+        print('Exits the program')
+
+    def help_create(self):
+        """Displays the function of the create command."""
+        print('Creates a new instance of a class, saves it to file and prints\
+ the id')
+
+    def help_show(self):
+        """Displays the function of the show command."""
+        print('Prints the string representation of an instance based on the\
+ class name and id')
+
+    def help_destroy(self):
+        """Displays the function of the destroy command."""
+        print('Deletes an instance based on the class name and id and save the\
+ change into the JSON file')
+
+    def help_all(self):
+        """Displays the function of the all command."""
+        print('Prints all string representation of all instances based or\
+ not on the class name.')
+
+    def help_update(self):
+        """Displays the function of the update command."""
+        print('Updates an instance based on the class name and id by adding or\
+ updating attribute and save the change into the JSON file')
 
 
 if __name__ == '__main__':
