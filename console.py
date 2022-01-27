@@ -28,6 +28,8 @@ class HBNBCommand(cmd.Cmd):
                    'Amenity': Amenity, 'Place': Place,
                    'Review': Review}
 
+    all_commands = ['create', 'show', 'destroy', 'all', 'update']
+
     def emptyline(self):
         """Do nothing if no command is entered."""
         pass
@@ -38,7 +40,10 @@ class HBNBCommand(cmd.Cmd):
             args = line.split('.')
             class_name = args[0]
             cmd_name = args[1].strip('()')
-            line = cmd_name + " " + class_name
+            if cmd_name not in HBNBCommand.all_commands:
+                line = cmd_name
+            else:
+                line = cmd_name + " " + class_name
         return line
 
     def do_quit(self, arg):
