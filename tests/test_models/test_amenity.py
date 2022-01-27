@@ -24,6 +24,7 @@ class TestAmenity(unittest.TestCase):
     a = [Amenity, "Amenity"]
 
     def tearDown(self):
+        """Remove storage file after test ends."""
         try:
             os.remove('file.json')
         except Exception:

@@ -20,6 +20,7 @@ class TestState(unittest.TestCase):
     a = [State, "State"]
 
     def tearDown(self):
+        """Remove storage file after test ends."""
         try:
             os.remove('file.json')
         except Exception:
