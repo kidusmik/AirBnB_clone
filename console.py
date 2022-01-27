@@ -28,6 +28,19 @@ class HBNBCommand(cmd.Cmd):
                    'Amenity': Amenity, 'Place': Place,
                    'Review': Review}
 
+    def emptyline(self):
+        """Do nothing if no command is entered."""
+        pass
+
+    def precmd(self, line):
+        """Manipulate the user input before getting processed."""
+        if '.' in line and '(' in line and ')' in line:
+            args = line.split('.')
+            class_name = args[0]
+            cmd_name = args[1].strip('()')
+            line = cmd_name + " " + class_name
+        return line
+
     def do_quit(self, arg):
         """Quits the command interpreter."""
         exit()
@@ -36,10 +49,6 @@ class HBNBCommand(cmd.Cmd):
         """Quits the command interpreter."""
         print()
         exit()
-
-    def emptyline(self):
-        """Do nothing if no command is entered."""
-        pass
 
     def do_create(self, arg):
         """Creates an instance from a class."""
