@@ -1,17 +1,19 @@
-# Team Project - AirBnB Clone
+# Project - AirBnB Clone
 
-This is ALX/Holberton's project *AirBnB Clone*, as the title states it is cloning the AirBnB web application leading owards building full web application: the *AirBnB Clone*
+![HBNB Cover Image](test/hbnb-cover.png)
+
+This is ALX/Holberton's project **AirBnB Clone**, as the title states it is cloning the AirBnB web application leading owards building full web application: the **AirBnB Clone**
 
 ## Project Description
 
-This project is building a terminal that is used to test important objects of the project, the tests include:
+The current aim of the project is to build a terminal that is used to manage and test the objects of our project, such as:
 
-* Creating the object
-* Destroying the object
-* Displaying the specific object
-* Destroying the object
-* Diplaying all the objects created
-* Updating the object
+* Create a new object (ex: a new User or a new Place)
+* Retrieve an object from a file, a database etc…
+* Diplaying an object or all objects from a file, a database etc…
+* Do operations on objects (count, compute stats, etc…)
+* Update attributes of an object
+* Destroy an object
 
 ### Classes
 
@@ -50,6 +52,47 @@ There are list of commands that can be interpreted by the terminal.
 | destroy | `destroy <class name> <id>` | Deletes an instance based on the class name and id |
 | all | `all` or `all <class name>` | Prints all string representation of all instances based or not on the class name |
 | update | `update <class name> <id> <attribute name> <attribute value>` | Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file |
+
+### Execution
+
+Execution in `interactive` and `non-interactive` modes.
+
+#### Interactive Mode
+```
+kidusmik@ubuntu:~AirBnB_clone$ ./console.py
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
+
+(hbnb)
+```
+
+#### Non-interactive Mode
+```
+kidusmik@ubuntu:~AirBnB_clone$ echo "help" | ./console.py
+(hbnb)
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
+(hbnb) 
+kidusmik@ubuntu:~AirBnB_clone$
+```
+```
+kidusmik@ubuntu:~AirBnB_clone$ cat test_help
+help
+kidusmik@ubuntu:~AirBnB_clone$
+kidusmik@ubuntu:~AirBnB_clone$ cat test_help | ./console.py
+(hbnb)
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
+(hbnb) 
+kidusmik@ubuntu:~AirBnB_clone$
+```
 
 ### Example
 
@@ -113,6 +156,13 @@ c37c1765-bd84-4890-90b4-690afffb2b3d
 (hbnb) all
 ["[Place] (4e70b774-e1ce-45c6-8993-45e10ce48a46) {'id': '4e70b774-e1ce-45c6-8993-45e10ce48a46', 'created_at': datetime.datetime(2022, 1, 26, 19, 50, 49, 59166), 'updated_at': datetime.datetime(2022, 1, 26, 19, 50, 49, 59232)}", "[BaseModel] (c37c1765-bd84-4890-90b4-690afffb2b3d) {'id': 'c37c1765-bd84-4890-90b4-690afffb2b3d', 'created_at': datetime.datetime(2022, 1, 26, 19, 54, 52, 766133), 'updated_at': datetime.datetime(2022, 1, 26, 19, 56, 36, 394426), 'email': 'kidusmik@gmail.com'}"]
 (hbnb)
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
+
+(hbnb)
 (hbnb) help quit
 Quit command to exit the program
 (hbnb)
@@ -121,4 +171,16 @@ kidusmik@ubuntu:~AirBnB_clone$
 kidusmik@ubuntu:~AirBnB_clone$ cat file.json ; echo ""
 {"Place.4e70b774-e1ce-45c6-8993-45e10ce48a46": {"id": "4e70b774-e1ce-45c6-8993-45e10ce48a46", "created_at": "2022-01-26T19:50:49.059166", "updated_at": "2022-01-26T19:50:49.059232", "__class__": "Place"}, "BaseModel.c37c1765-bd84-4890-90b4-690afffb2b3d": {"id": "c37c1765-bd84-4890-90b4-690afffb2b3d", "created_at": "2022-01-26T19:54:52.766133", "updated_at": "2022-01-26T19:56:36.394426", "email": "kidusmik@gmail.com", "__class__": "BaseModel"}}
 kidusmik@ubuntu:~AirBnB_clone$
+```
+
+### Testing
+
+To run all the `unittests` run `python3 -m unittest discover tests`:
+```
+kidusmik@ubuntu:~AirBnB_clone$ python3 -m unittest discover tests
+```
+
+Or non-interactively by running `echo "python3 -m unittest discover tests" | bash`:
+```
+kidusmik@ubuntu:~AirBnB_clone$ echo "python3 -m unittest discover tests" | bash
 ```
