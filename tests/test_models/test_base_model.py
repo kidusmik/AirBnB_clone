@@ -7,6 +7,7 @@ Using ``test_base_model``
 -------------------------
 
 This is a test_base_model unittest file to test the base_model module.
+
 """
 import unittest
 from models.base_model import BaseModel
