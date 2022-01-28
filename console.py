@@ -37,7 +37,29 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """Manipulate the user input before getting processed."""
-        if '.' in line and '(' in line and ')' in line:
+        if '{' in line and '}' in line:
+            args = line.split('.')
+            class_name = args[0]
+            args = args[1].split('(')
+            cmd_name = args[0]
+            args[1].strip(')')
+            attr_lst = re.findall(r"([^(, *):{}]+)", args[1])
+            id_val = attr_lst[0]
+            del attr_lst[0]
+            j = 0
+            for i in range(len(attr_lst) // 2):
+                loop_line = ""
+                key = attr_lst[j].strip("'")
+                value = attr_lst[j + 1].strip("'")
+                loop_line = cmd_name + " " + class_name + " "\
+                                     + id_val.strip('"') + " "\
+                                     + key.strip('"') + " "\
+                                     + value.strip("'")
+                j += 2
+                cmd.Cmd.onecmd(self, loop_line)
+            line = ""
+
+        elif '.' in line and '(' in line and ')' in line:
             args = line.split('.')
             class_name = args[0]
             args = args[1].split('(')
@@ -51,6 +73,7 @@ class HBNBCommand(cmd.Cmd):
                 if attr_lst:
                     for i in attr_lst:
                         line = line + " " + i
+
         return line
 
     def do_quit(self, arg):
@@ -149,9 +172,11 @@ class HBNBCommand(cmd.Cmd):
             value = args[3]
             if '"' not in args[3] and "'" not in args[3] and args[3].isdigit():
                 try:
-                    value = int(args[3])            
+                    value = int(args[3])
                 except ValueError:
                     value = float(args[3])
+            else:
+                value = value.strip('"')
             selected_obj_dict.update({args[2].strip('"'): value})
             updated_obj = HBNBCommand.all_classes[args[0]](**selected_obj_dict)
             storage._FileStorage__objects.update({key_obj: updated_obj})
