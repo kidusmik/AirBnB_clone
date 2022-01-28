@@ -31,19 +31,45 @@ class HBNBCommand(cmd.Cmd):
 
     all_commands = ['create', 'show', 'destroy', 'all', 'update', 'count']
 
+    error_occured = False
+
     def emptyline(self):
         """Do nothing if no command is entered."""
         pass
 
     def precmd(self, line):
         """Manipulate the user input before getting processed."""
-        if '.' in line and '(' in line and ')' in line:
+        if '{' in line and '}' in line:
             args = line.split('.')
             class_name = args[0]
             args = args[1].split('(')
             cmd_name = args[0]
             args[1].strip(')')
-            attr_lst = re.findall(r"([^(, *)]+)(?!.*\()", args[1])
+            attr_lst = re.findall(r"([^(, *):{}]+)", args[1])
+            id_val = attr_lst[0].strip("'")
+            del attr_lst[0]
+            j = 0
+            for i in range(len(attr_lst) // 2):
+                loop_line = ""
+                key = attr_lst[j].strip("'")
+                value = attr_lst[j + 1].strip("'")
+                loop_line = cmd_name + " " + class_name + " "\
+                                     + id_val.strip('"') + " "\
+                                     + key.strip('"') + " "\
+                                     + value
+                j += 2
+                cmd.Cmd.onecmd(self, loop_line)
+                if HBNBCommand.error_occured:
+                    break
+            line = ""
+
+        elif '.' in line and '(' in line and ')' in line:
+            args = line.split('.')
+            class_name = args[0]
+            args = args[1].split('(')
+            cmd_name = args[0]
+            args[1].strip(')')
+            attr_lst = re.findall(r"([^(, *)]+)", args[1])
             if cmd_name not in HBNBCommand.all_commands:
                 line = cmd_name
             else:
@@ -51,6 +77,7 @@ class HBNBCommand(cmd.Cmd):
                 if attr_lst:
                     for i in attr_lst:
                         line = line + " " + i.strip('"')
+
         return line
 
     def do_quit(self, arg):
@@ -128,25 +155,38 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """Updates an object with the values passed from the command line."""
+        HBNBCommand.error_occured = False
         args = arg.split()
         if len(args) < 1:
             print('** class name missing **')
+            HBNBCommand.error_occured = True
         elif args[0] not in HBNBCommand.all_classes.keys():
             print("** class doesn't exist **")
+            HBNBCommand.error_occured = True
         elif len(args) < 2:
             print('** instance id missing **')
+            HBNBCommand.error_occured = True
         elif (args[0] + "." + args[1]) not in\
                 storage._FileStorage__objects.keys():
             print('** no instance found **')
+            HBNBCommand.error_occured = True
         elif len(args) < 3:
             print('** attribute name missing **')
+            HBNBCommand.error_occured = True
         elif len(args) < 4:
             print('** value missing **')
+            HBNBCommand.error_occured = True
         else:
             key_obj = args[0] + "." + args[1]
             selected_obj = storage._FileStorage__objects[key_obj]
             selected_obj_dict = selected_obj.to_dict()
-            selected_obj_dict.update({args[2]: args[3].strip('"')})
+            value = args[3].strip('"')
+            if args[3].isdigit():
+                try:
+                    value = int(args[3])
+                except ValueError:
+                    value = float(args[3])
+            selected_obj_dict.update({args[2]: value})
             updated_obj = HBNBCommand.all_classes[args[0]](**selected_obj_dict)
             storage._FileStorage__objects.update({key_obj: updated_obj})
             updated_obj.save()
