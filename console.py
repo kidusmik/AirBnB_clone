@@ -43,14 +43,14 @@ class HBNBCommand(cmd.Cmd):
             args = args[1].split('(')
             cmd_name = args[0]
             args[1].strip(')')
-            attr_lst = re.findall(r"([^(, *)]+)(?!.*\()", args[1])
+            attr_lst = re.findall(r"([^(, *)]+)", args[1])
             if cmd_name not in HBNBCommand.all_commands:
                 line = cmd_name
             else:
                 line = cmd_name + " " + class_name
                 if attr_lst:
                     for i in attr_lst:
-                        line = line + " " + i.strip('"')
+                        line = line + " " + i
         return line
 
     def do_quit(self, arg):
@@ -146,7 +146,13 @@ class HBNBCommand(cmd.Cmd):
             key_obj = args[0] + "." + args[1]
             selected_obj = storage._FileStorage__objects[key_obj]
             selected_obj_dict = selected_obj.to_dict()
-            selected_obj_dict.update({args[2]: args[3].strip('"')})
+            value = args[3]
+            if '"' not in args[3] and "'" not in args[3] and args[3].isdigit():
+                try:
+                    value = int(args[3])            
+                except ValueError:
+                    value = float(args[3])
+            selected_obj_dict.update({args[2].strip('"'): value})
             updated_obj = HBNBCommand.all_classes[args[0]](**selected_obj_dict)
             storage._FileStorage__objects.update({key_obj: updated_obj})
             updated_obj.save()
