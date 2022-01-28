@@ -59,7 +59,7 @@ These are lists of commands that can be interpreted by the terminal.
 
 Execution in `interactive` and `non-interactive` modes.
 
-#### Interactive Mode
+#### 1. Interactive Mode
 ```
 kidusmik@ubuntu:~AirBnB_clone$ ./console.py
 (hbnb) help
@@ -70,7 +70,7 @@ EOF  all  count  create  destroy  help  quit  show  update
 (hbnb)
 ```
 
-#### Non-interactive Mode
+#### 2. Non-interactive Mode
 ```
 kidusmik@ubuntu:~AirBnB_clone$ echo "help" | ./console.py
 (hbnb)
@@ -193,13 +193,12 @@ c2e7de07-4c19-4ada-ba23-323cd5c26a5e
 ```
 ```
 (hbnb) Review.all()
-["[Review] (24c1615d-7c12-4366-9677-2861037d5391) {'id': '24c1615d-7c12-4366-9677-2861037d5391', 'created_at': datetime.datetime(2022, 1, 28, 12, 31, 42, 182064), 'updated_at': datetime.datetime(2022, 1, 28, 12, 31, 42, 182132)}"]
+["[Review] (9a97d116-8edf-4478-80e0-b57ad4a6406d) {'id': '9a97d116-8edf-4478-80e0-b57ad4a6406d', 'created_at': datetime.datetime(2022, 1, 28, 16, 37, 17, 970265), 'updated_at': datetime.datetime(2022, 1, 28, 16, 37, 17, 970393)}"]
 (hbnb)
-(hbnb) Review.update("24c1615d-7c12-4366-9677-2861037d5391", {'stars': 4.5, 'total_view': 500, 'user_name': "Kidus"})
+(hbnb) Review.update("9a97d116-8edf-4478-80e0-b57ad4a6406d", {'stars': 4.685, 'total_view': 5876, 'user_name': "Kidus Worku"})
 (hbnb)
 (hbnb) Review.all()
-["[Review] (24c1615d-7c12-4366-9677-2861037d5391) {'id': '24c1615d-7c12-4366-9677-2861037d5391', 'created_at': datetime.datetime(2022, 1, 28, 12, 31, 42, 182064), 'updated_at': datetime.datetime(2022, 1, 28, 12, 33, 52, 106098), 'stars': 4.5}"]
-(hbnb)
+["[Review] (9a97d116-8edf-4478-80e0-b57ad4a6406d) {'id': '9a97d116-8edf-4478-80e0-b57ad4a6406d', 'created_at': datetime.datetime(2022, 1, 28, 16, 37, 17, 970265), 'updated_at': datetime.datetime(2022, 1, 28, 17, 7, 50, 333219), 'stars': 4.685, 'total_view': 5876, 'user_name': 'Kidus Worku'}"]
 ```
 
 #### Overall Usage Example
