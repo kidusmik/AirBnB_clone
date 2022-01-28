@@ -40,21 +40,19 @@ class HBNBCommand(cmd.Cmd):
     def precmd(self, line):
         """Manipulate the user input before getting processed."""
         if '{' in line and '}' in line:
-            args = line.split('.')
-            class_name = args[0]
-            args = args[1].split('(')
-            cmd_name = args[0]
-            args[1].strip(')')
-            attr_lst = re.findall(r"([^(,):{}]+)", args[1])
-            attr_lst = [x.strip() for x in attr_lst]
-            attr_lst[:] = [x for x in attr_lst if x]
-            id_val = attr_lst[0].strip("'")
-            del attr_lst[0]
+            args = re.findall(r"([^(,):{}]+)", line)
+            args = [x.strip() for x in args]
+            args[:] = [x for x in args if x]
+            class_name = args[0].split('.')[0]
+            cmd_name = args[0].split('.')[1]
+            id_val = args[1].strip("'")
+            del args[0]
+            del args[0]
             j = 0
-            for i in range(len(attr_lst) // 2):
+            for i in range(len(args) // 2):
                 loop_line = ""
-                key = attr_lst[j].strip("'")
-                value = attr_lst[j + 1].strip("'")
+                key = args[j].strip("'")
+                value = args[j + 1].strip("'")
                 loop_line = cmd_name + " " + class_name + " "\
                                      + id_val.strip('"') + " "\
                                      + key.strip('"') + " "\
@@ -66,22 +64,21 @@ class HBNBCommand(cmd.Cmd):
             line = ""
 
         elif '.' in line and '(' in line and ')' in line:
-            args = line.split('.')
-            class_name = args[0]
-            args = args[1].split('(')
-            cmd_name = args[0]
-            args[1].strip(')')
-            attr_lst = re.findall(r"([^(,):{}]+)", args[1])
-            attr_lst = [x.strip() for x in attr_lst]
-            attr_lst[:] = [x for x in attr_lst if x]
+            args = re.findall(r"([^(,):{}]+)", line)
+            args = [x.strip() for x in args]
+            args[:] = [x for x in args if x]
+            class_name = args[0].split('.')[0]
+            cmd_name = args[0].split('.')[1]
+            id_val = args[1].strip('"')
+            del args[0]
+            del args[0]
             if cmd_name not in HBNBCommand.all_commands:
                 line = cmd_name
             else:
-                line = cmd_name + " " + class_name
-                if attr_lst:
-                    for i in attr_lst:
-                        line = line + " " + i.strip('"')
-
+                line = cmd_name + " " + class_name + " " + id_val
+                if args:
+                    for i in args:
+                        line = line + " " + i
         return line
 
     def do_quit(self, arg):
@@ -191,7 +188,7 @@ class HBNBCommand(cmd.Cmd):
                     value = float(args[3])
             else:
                 value = args[3].strip('"')
-            selected_obj_dict.update({args[2]: value})
+            selected_obj_dict.update({args[2].strip('"'): value})
             updated_obj = HBNBCommand.all_classes[args[0]](**selected_obj_dict)
             storage._FileStorage__objects.update({key_obj: updated_obj})
             updated_obj.save()
