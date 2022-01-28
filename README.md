@@ -46,7 +46,7 @@ kidusmik@ubuntu:~AirBnB_clone$ ./console.py
 These are lists of commands that can be interpreted by the terminal.
 
 | Command | Syntax | Alternate Syntax | Function |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | create | `create <class name>` | `<class name>.create()` | Creates a new instance of the class |
 | show | `show <class name> <id>` | `<class name>.show(<id>)` | Prints the string representation of an instance based on the class name |
 | destroy | `destroy <class name> <id>` | `<class name>.destroy(<id>)` | Deletes an instance based on the class name and id |
