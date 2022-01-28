@@ -31,6 +31,8 @@ class HBNBCommand(cmd.Cmd):
 
     all_commands = ['create', 'show', 'destroy', 'all', 'update', 'count']
 
+    error_occured = False
+
     def emptyline(self):
         """Do nothing if no command is entered."""
         pass
@@ -44,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
             cmd_name = args[0]
             args[1].strip(')')
             attr_lst = re.findall(r"([^(, *):{}]+)", args[1])
-            id_val = attr_lst[0]
+            id_val = attr_lst[0].strip("'")
             del attr_lst[0]
             j = 0
             for i in range(len(attr_lst) // 2):
@@ -54,9 +56,11 @@ class HBNBCommand(cmd.Cmd):
                 loop_line = cmd_name + " " + class_name + " "\
                                      + id_val.strip('"') + " "\
                                      + key.strip('"') + " "\
-                                     + value.strip("'")
+                                     + value
                 j += 2
                 cmd.Cmd.onecmd(self, loop_line)
+                if HBNBCommand.error_occured:
+                    break
             line = ""
 
         elif '.' in line and '(' in line and ')' in line:
@@ -72,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
                 line = cmd_name + " " + class_name
                 if attr_lst:
                     for i in attr_lst:
-                        line = line + " " + i
+                        line = line + " " + i.strip('"')
 
         return line
 
@@ -151,33 +155,38 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """Updates an object with the values passed from the command line."""
+        HBNBCommand.error_occured = False
         args = arg.split()
         if len(args) < 1:
             print('** class name missing **')
+            HBNBCommand.error_occured = True
         elif args[0] not in HBNBCommand.all_classes.keys():
             print("** class doesn't exist **")
+            HBNBCommand.error_occured = True
         elif len(args) < 2:
             print('** instance id missing **')
+            HBNBCommand.error_occured = True
         elif (args[0] + "." + args[1]) not in\
                 storage._FileStorage__objects.keys():
             print('** no instance found **')
+            HBNBCommand.error_occured = True
         elif len(args) < 3:
             print('** attribute name missing **')
+            HBNBCommand.error_occured = True
         elif len(args) < 4:
             print('** value missing **')
+            HBNBCommand.error_occured = True
         else:
             key_obj = args[0] + "." + args[1]
             selected_obj = storage._FileStorage__objects[key_obj]
             selected_obj_dict = selected_obj.to_dict()
-            value = args[3]
-            if '"' not in args[3] and "'" not in args[3] and args[3].isdigit():
+            value = args[3].strip('"')
+            if args[3].isdigit():
                 try:
                     value = int(args[3])
                 except ValueError:
                     value = float(args[3])
-            else:
-                value = value.strip('"')
-            selected_obj_dict.update({args[2].strip('"'): value})
+            selected_obj_dict.update({args[2]: value})
             updated_obj = HBNBCommand.all_classes[args[0]](**selected_obj_dict)
             storage._FileStorage__objects.update({key_obj: updated_obj})
             updated_obj.save()
