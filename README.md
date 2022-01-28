@@ -201,10 +201,6 @@ c2e7de07-4c19-4ada-ba23-323cd5c26a5e
 ["[Review] (24c1615d-7c12-4366-9677-2861037d5391) {'id': '24c1615d-7c12-4366-9677-2861037d5391', 'created_at': datetime.datetime(2022, 1, 28, 12, 31, 42, 182064), 'updated_at': datetime.datetime(2022, 1, 28, 12, 33, 52, 106098), 'stars': 4.5}"]
 (hbnb)
 ```
-```
-(hbnb) all
-["[User] (c2e7de07-4c19-4ada-ba23-323cd5c26a5e) {'id': 'c2e7de07-4c19-4ada-ba23-323cd5c26a5e', 'created_at': datetime.datetime(2022, 1, 28, 12, 16, 27, 752995), 'updated_at': datetime.datetime(2022, 1, 28, 12, 16, 27, 753136)}", "[User] (463d9c0f-b356-4f79-9ace-b91374503231) {'id': '463d9c0f-b356-4f79-9ace-b91374503231', 'created_at': datetime.datetime(2022, 1, 28, 12, 16, 31, 593480), 'updated_at': datetime.datetime(2022, 1, 28, 12, 16, 31, 593541)}"]
-```
 
 #### Overall Usage Example
 
