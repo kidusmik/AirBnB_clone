@@ -52,8 +52,8 @@ These are lists of commands that can be interpreted by the terminal.
 | destroy | `destroy <class name> <id>` | `<class name>.destroy(<id>)` | Deletes an instance based on the class name and id |
 | all | `all` or `all <class name>` | `<class name>.all()` | Prints all string representation of all instances based or not on the class name |
 | update | `update <class name> <id> <attribute name> <attribute value>` | `<class name>.update(<id>, <attribute name>, <attribute value>)` or `<class name>.update(<id>, <dictionary representation>)` | Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file |
-| quit | `quit` | Exits the console |
-| EOF | `Ctrl-D` | Same as `quit`, exits the console |
+| quit | `quit` | (none) | Exits the console |
+| EOF | `Ctrl-D` | (none) | Same as `quit`, exits the console |
 
 ### Execution
 
