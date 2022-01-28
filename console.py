@@ -48,6 +48,7 @@ class HBNBCommand(cmd.Cmd):
             id_val = args[1].strip("'")
             del args[0]
             del args[0]
+            print(args)
             j = 0
             for i in range(len(args) // 2):
                 loop_line = ""
@@ -69,16 +70,17 @@ class HBNBCommand(cmd.Cmd):
             args[:] = [x for x in args if x]
             class_name = args[0].split('.')[0]
             cmd_name = args[0].split('.')[1]
-            id_val = args[1].strip('"')
-            del args[0]
-            del args[0]
             if cmd_name not in HBNBCommand.all_commands:
                 line = cmd_name
-            else:
+            elif len(args) > 1:
+                id_val = args[1].strip('"')
+                del args[0]
+                del args[0]
                 line = cmd_name + " " + class_name + " " + id_val
-                if args:
-                    for i in args:
-                        line = line + " " + i
+                for i in args:
+                    line = line + " " + i
+            else:
+                line = cmd_name + " " + class_name
         return line
 
     def do_quit(self, arg):
