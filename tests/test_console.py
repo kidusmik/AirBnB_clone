@@ -13,6 +13,7 @@ import os
 from console import HBNBCommand
 from models import storage
 
+
 class TestConsole(unittest.TestCase):
     """Defines a class TestConsole.
     Test functionality of the console module.
@@ -98,12 +99,114 @@ class TestConsole(unittest.TestCase):
                 id_val = f.getvalue().strip()
                 self.assertTrue(i + "." + id_val in storage._FileStorage__objects.keys())
 
-    def test_alt_create(self):
+    def test_show(self):
         """Tests if help message is as expected."""
         with patch('sys.stdout', new=StringIO()) as f:
             for i in TestConsole.all_classes_name:
                 f.truncate(0)
                 f.seek(0)
-                HBNBCommand().onecmd(i + ".create()")
+                HBNBCommand().onecmd("create" + " " + i)
                 id_val = f.getvalue().strip()
+                f.truncate(0)
+                f.seek(0)
+                HBNBCommand().onecmd("show" + " " + i + " " + id_val)
+                str_obj = f.getvalue().strip()
+                self.assertEqual(str(storage._FileStorage__objects.get(i + "." + id_val)), str_obj)
+
+    def test_destroy(self):
+        """Tests if help message is as expected."""
+        with patch('sys.stdout', new=StringIO()) as f:
+            for i in TestConsole.all_classes_name:
+                f.truncate(0)
+                f.seek(0)
+                HBNBCommand().onecmd("create" + " " + i)
+                id_val = f.getvalue().strip()
+                f.truncate(0)
+                f.seek(0)
                 self.assertTrue(i + "." + id_val in storage._FileStorage__objects.keys())
+                HBNBCommand().onecmd("destroy" + " " + i + " " + id_val)
+                self.assertTrue(i + "." + id_val not in storage._FileStorage__objects.keys())
+
+    def test_all(self):
+        """Tests if help message is as expected."""
+        with patch('sys.stdout', new=StringIO()) as f:
+            for i in TestConsole.all_classes_name:
+                HBNBCommand().onecmd("create" + " " + i)
+            f.truncate(0)
+            f.seek(0)
+            lst_all = []
+            for key in storage._FileStorage__objects.keys():
+                lst_all.append(str(storage._FileStorage__objects[key]))
+            HBNBCommand().onecmd("all")
+            self.assertEqual(f.getvalue().strip(), str(lst_all))
+
+    def test_all_single(self):
+        """Tests if help message is as expected."""
+        with patch('sys.stdout', new=StringIO()) as f:
+            for i in TestConsole.all_classes_name:
+                HBNBCommand().onecmd("create" + " " + i)
+            for i in TestConsole.all_classes_name:
+                f.truncate(0)
+                f.seek(0)
+                HBNBCommand().onecmd("all" + " " + i)  
+                lst_all = []
+                for key in storage._FileStorage__objects.keys():
+                    if key.split('.')[0] == i:
+                        lst_all.append(str(storage._FileStorage__objects[key]))
+                self.assertEqual(f.getvalue().strip(), str(lst_all))
+
+    def test_update_string(self):
+        """Tests if help message is as expected."""
+        with patch('sys.stdout', new=StringIO()) as f:
+            for i in TestConsole.all_classes_name:
+                f.truncate(0)
+                f.seek(0)
+                HBNBCommand().onecmd("create" + " " + i)
+                id_val = f.getvalue().strip()
+                f.truncate(0)
+                f.seek(0)
+                self.assertTrue(i + "." + id_val in storage._FileStorage__objects.keys())
+                HBNBCommand().onecmd("update" + " " + i + " " + id_val + '"first_name"' + '"Kidus Worku"')
+                f.truncate(0)
+                f.seek(0)
+                HBNBCommand().onecmd("show" + " " + i + " " + id_val)
+                str_obj = f.getvalue().strip()
+                self.assertEqual(str(storage._FileStorage__objects.get(i + "." + id_val)), str_obj)
+
+    def test_update_float(self):
+        """Tests if help message is as expected."""
+        with patch('sys.stdout', new=StringIO()) as f:
+            for i in TestConsole.all_classes_name:
+                f.truncate(0)
+                f.seek(0)
+                HBNBCommand().onecmd("create" + " " + i)
+                id_val = f.getvalue().strip()
+                f.truncate(0)
+                f.seek(0)
+                self.assertTrue(i + "." + id_val in storage._FileStorage__objects.keys())
+                HBNBCommand().onecmd("update" + " " + i + " " + id_val + " " + "user_id" + " " + "89")
+                f.truncate(0)
+                f.seek(0)
+                HBNBCommand().onecmd("show" + " " + i + " " + id_val)
+                str_obj = f.getvalue().strip()
+                self.assertEqual(str(storage._FileStorage__objects.get(i + "." + id_val)), str_obj)
+                self.assertTrue(type(storage._FileStorage__objects.get(i + "." + id_val).rating_value) is int)
+
+    def test_update_float(self):
+        """Tests if help message is as expected."""
+        with patch('sys.stdout', new=StringIO()) as f:
+            for i in TestConsole.all_classes_name:
+                f.truncate(0)
+                f.seek(0)
+                HBNBCommand().onecmd("create" + " " + i)
+                id_val = f.getvalue().strip()
+                f.truncate(0)
+                f.seek(0)
+                self.assertTrue(i + "." + id_val in storage._FileStorage__objects.keys())
+                HBNBCommand().onecmd("update" + " " + i + " " + id_val + " " + "rating_value" + " " + "98.89")
+                f.truncate(0)
+                f.seek(0)
+                HBNBCommand().onecmd("show" + " " + i + " " + id_val)
+                str_obj = f.getvalue().strip()
+                self.assertEqual(str(storage._FileStorage__objects.get(i + "." + id_val)), str_obj)
+                self.assertTrue(type(storage._FileStorage__objects.get(i + "." + id_val).rating_value) is float)
