@@ -58,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
                                      + key.strip('"') + " "\
                                      + value
                 j += 2
-                cmd.Cmd.onecmd(self, loop_line)
+                HBNBCommand.onecmd(self, loop_line)
                 if HBNBCommand.error_occured:
                     break
             line = ""
