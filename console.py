@@ -48,7 +48,6 @@ class HBNBCommand(cmd.Cmd):
             id_val = args[1].strip("'")
             del args[0]
             del args[0]
-            print(args)
             j = 0
             for i in range(len(args) // 2):
                 loop_line = ""
